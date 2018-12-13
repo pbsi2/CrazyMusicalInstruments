@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Title for the application. [CHAR LIMIT=12] -->
+    <string name="app_name">CRAZY MUSIC INSTRUMENTS</string>
+    <!-- Category name for phrases [CHAR LIMIT=20] -->
+    <string name="category_Guitars">Guitar</string>
+
+    <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
+    <string name="category_Percussions">Percussion</string>
+
+    <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
+    <string name="category_Keyboards">Keyboard</string>
+
+    <!-- Category name for the vocabulary words for family members [CHAR LIMIT=20] -->
+    <string name="category_Intro">INTRODUCTION
+    This application will show you different instruments related to the Guitars, Keyboards and Percussion family.</string>
+
+</resources>

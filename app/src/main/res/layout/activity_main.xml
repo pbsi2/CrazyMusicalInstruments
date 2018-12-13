@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.pbsi2.crazymusicalinstruments.MainActivity">
+
+    <TextView
+        android:id="@+id/into"
+        style="@style/CategoryStyle"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:background="@color/category_palered"
+        android:text="@string/category_Intro" />
+
+    <TextView
+        android:id="@+id/guitars"
+        style="@style/CategoryStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/category_midred"
+        android:text="@string/category_Guitars" />
+
+    <TextView
+        android:id="@+id/keyboards"
+        style="@style/CategoryStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/category_morered"
+        android:text="@string/category_Keyboards" />
+
+    <TextView
+        android:id="@+id/percussions"
+        style="@style/CategoryStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/category_red"
+        android:text="@string/category_Percussions" />
+
+
+</LinearLayout>
