@@ -2,6 +2,7 @@ package com.pbsi2.crazymusicalinstruments;
 
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.MyViewHolder> {
-    private ArrayList<MyInstruments> instrumentsArrayList;
+    public ArrayList<MyInstruments> instrumentsArrayList;
     private int background;
+    MediaPlayer myAudio = MainActivity.instrumentPlayer;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -24,6 +28,7 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public LinearLayout mLinearLayout;
+
         public MyViewHolder(LinearLayout v) {
             super(v);
             mLinearLayout = v;
@@ -31,15 +36,15 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public InstrumentsAdapter(ArrayList<MyInstruments> guitarPluck , int color) {
+    public InstrumentsAdapter(ArrayList<MyInstruments> guitarPluck, int color) {
         instrumentsArrayList = guitarPluck;
         background = color;
+
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public InstrumentsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                              int viewType) {
+    public InstrumentsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         LinearLayout ll = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.single_recycler, parent, false);
         return new MyViewHolder(ll);
@@ -47,21 +52,22 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        //MediaPlayer myAudio = MainActivity.instrumentPlayer;
         LinearLayout linearLayout = holder.mLinearLayout;
         LinearLayout textLayout = linearLayout.findViewById(R.id.textsLayout);
-        textLayout.setBackgroundColor(ContextCompat.getColor(textLayout.getContext(),background));
+        textLayout.setBackgroundColor(ContextCompat.getColor(textLayout.getContext(), background));
         ImageView imageview = linearLayout.findViewById(R.id.imageView);
         Drawable drawable = ContextCompat.getDrawable(linearLayout.getContext(), instrumentsArrayList.get(position).getImageId());
         if (instrumentsArrayList.get(position).hasImage()) {
             imageview.setImageDrawable(drawable);
             imageview.setVisibility(View.VISIBLE);
-        }else{
-           imageview.setVisibility(View.GONE);
+        } else {
+            imageview.setVisibility(View.GONE);
         }
-        final MediaPlayer mediaPlayer = MediaPlayer.create(linearLayout.getContext(), instrumentsArrayList.get(position).getSoundId());
+
         imageview.setContentDescription(instrumentsArrayList.get(position).getDescription());
         TextView dtextView = linearLayout.findViewById(R.id.defaultView);
         dtextView.setText(instrumentsArrayList.get(position).getDescription());
@@ -70,34 +76,49 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
         ImageButton mRewButton = linearLayout.findViewById(R.id.rewButton);
         mRewButton.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
+            //MediaPlayer myAudio = MainActivity.instrumentPlayer;
             @Override
             public void onClick(View view) {
-                mediaPlayer.seekTo(0);
+                myAudio.seekTo(0);
             }
         });
         ImageButton mPlayButton = linearLayout.findViewById(R.id.playButton);
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
+            //MediaPlayer myAudio = MainActivity.instrumentPlayer;
             @Override
             public void onClick(View view) {
-                if (mediaPlayer.isPlaying()) {
-                    if (mediaPlayer != null) {
-                        mediaPlayer.stop();
-                    }
-                } else {
-                    if (mediaPlayer != null) {
-                        mediaPlayer.start();
-                    }
+
+                myAudio.stop();
+                myAudio.reset();
+
+                try {
+                    Uri myUri = Uri.parse("android.resource://com.pbsi2.crazymusicalinstruments/" + instrumentsArrayList.get(position).getSoundId());
+                    myAudio.setDataSource(view.getContext(), myUri);
+                    myAudio.prepare();
+                    myAudio.start();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e2) {
+                    e2.printStackTrace();
                 }
+                //MainActivity.instrumentPlayer.stop();
+                //MainActivity.instrumentPlayer.create(linearLayout.getContext(), instrumentsArrayList.get(position).getSoundId());
+
+                //MainActivity.instrumentPlayer.stop();
+                //MainActivity.instrumentPlayer.create(linearLayout.getContext(), instrumentsArrayList.get(position).getSoundId());
+
+
             }
 
         });
         ImageButton mStopButton = linearLayout.findViewById(R.id.stopButton);
         mStopButton.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
+            //MediaPlayer myAudio = MainActivity.instrumentPlayer;
             @Override
             public void onClick(View view) {
-                mediaPlayer.pause();
+                myAudio.reset();
             }
         });
     }

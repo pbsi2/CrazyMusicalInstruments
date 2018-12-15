@@ -37,4 +37,9 @@ public class GuitarsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
     }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        MainActivity.instrumentPlayer.reset();
+    }
 }
