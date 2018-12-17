@@ -1,5 +1,6 @@
 package com.pbsi2.crazymusicalinstruments;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ public class GuitarsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    final MediaPlayer instrumentPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class GuitarsActivity extends AppCompatActivity {
         // For a GRID
         //mLayoutManager = new GridLayoutManager(this,5);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        ArrayList<MyInstruments> MyInstrumentsg = new ArrayList<MyInstruments>();
+        ArrayList<MyInstruments> MyInstrumentsg = new ArrayList<>();
 
         MyInstrumentsg.add(new MyInstruments(R.drawable.guitars, R.raw.doctor_turtle_beaconsfield_villas_stomp_guitar, "Guitar (Spain)", "Guitar evolves from Oud and the Luth, it became popular in Spain after people realized that bull fight was a dangerous hobby"));
         MyInstrumentsg.add(new MyInstruments(R.drawable.oud, R.raw.sherita_oud, "Oud (Iran)", "In the 200 century BC it was the main instrument in the Persian civilisation"));
